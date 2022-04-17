@@ -10,6 +10,7 @@ import { addflat, getAllflat } from "../Redux/Flat/action";
 import { CustomButtonRoot } from "./Login";
 import Pagination from "@mui/material/Pagination";
 import { useNavigate } from "react-router-dom";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export const Main = () => {
   const [page, setPage] = useState(1);
@@ -71,69 +72,82 @@ export const Main = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {flat.map(({ _id, img, type, block, no, residents }, i) => (
-              <TableRow
-                key={_id}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell
-                  onClick={() => {
-                    navigate(`/residents/${_id}`);
-                  }}
-                  component="th"
-                  scope="row"
-                >
-                  {i}
-                </TableCell>
-                <TableCell
-                  onClick={() => {
-                    navigate(`/residents/${_id}`);
-                  }}
-                  align="right"
-                >
-                  {no}
-                </TableCell>
-                <TableCell
-                  onClick={() => {
-                    navigate(`/residents/${_id}`);
-                  }}
-                  align="right"
-                >
-                  <img alt="logo" src={img}></img>
-                </TableCell>
-                <TableCell
-                  onClick={() => {
-                    navigate(`/residents/${_id}`);
-                  }}
-                  align="right"
-                >
-                  {block}
-                </TableCell>
-                <TableCell
-                  onClick={() => {
-                    navigate(`/residents/${_id}`);
-                  }}
-                  align="right"
-                >
-                  {type}
-                </TableCell>
-                <TableCell
-                  onClick={() => {
-                    navigate(`/residents/${_id}`);
-                  }}
-                  align="right"
-                >
-                  {residents}
-                </TableCell>
-                <TableCell
-                  onClick={() => {
-                    navigate(`/editform/${_id}`);
-                  }}
-                >
-                  {"Edit"}
-                </TableCell>
-              </TableRow>
-            ))}
+            {loading ? (
+              <CircularProgress
+                style={{
+                  position: "absolute",
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(calc(50vw - 50%))"
+                }}
+              />
+            ) : (
+              <>
+                {flat.map(({ _id, img, type, block, no, residents }, i) => (
+                  <TableRow
+                    key={_id}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell
+                      onClick={() => {
+                        navigate(`/residents/${_id}`);
+                      }}
+                      component="th"
+                      scope="row"
+                    >
+                      {i}
+                    </TableCell>
+                    <TableCell
+                      onClick={() => {
+                        navigate(`/residents/${_id}`);
+                      }}
+                      align="right"
+                    >
+                      {no}
+                    </TableCell>
+                    <TableCell
+                      onClick={() => {
+                        navigate(`/residents/${_id}`);
+                      }}
+                      align="right"
+                    >
+                      <img alt="logo" src={img}></img>
+                    </TableCell>
+                    <TableCell
+                      onClick={() => {
+                        navigate(`/residents/${_id}`);
+                      }}
+                      align="right"
+                    >
+                      {block}
+                    </TableCell>
+                    <TableCell
+                      onClick={() => {
+                        navigate(`/residents/${_id}`);
+                      }}
+                      align="right"
+                    >
+                      {type}
+                    </TableCell>
+                    <TableCell
+                      onClick={() => {
+                        navigate(`/residents/${_id}`);
+                      }}
+                      align="right"
+                    >
+                      {residents}
+                    </TableCell>
+                    <TableCell
+                      onClick={() => {
+                        navigate(`/editform/${_id}`);
+                      }}
+                    >
+                      {"Edit"}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </>
+            )}
           </TableBody>
         </Table>
         <Pagination count={totalPage} page={page} onChange={handleChange} />
